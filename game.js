@@ -1,7 +1,67 @@
 // ---------------- DATOS ----------------
 const WORDS = [
-    "python", "algoritmo", "hilo", "variable", "funcion",
-    "bucle", "clase", "objeto", "lista", "diccionario"
+    // --- Cotidianas y Hogar ---
+    "mesa", "silla", "lampara", "ventana", "puerta", "cocina", "espejo", "cuadro",
+    "nevera", "tenedor", "cuchara", "sarten", "almohada", "sabana", "cepillo", "jabon",
+    "toalla", "percha", "armario", "alfombra", "cortina", "plato", "vaso", "botella",
+    "reloj", "llave", "cartera", "mochila", "boligrafo", "libreta", "periodico", "revista",
+
+    // --- Comida y Bebida ---
+    "manzana", "platano", "cereza", "pan", "queso", "chocolate", "arroz", "pasta",
+    "hamburguesa", "pizza", "ensalada", "tomate", "patata", "cebolla", "huevo", "leche",
+    "cafe", "zumo", "galleta", "pastel", "helado", "carne", "pescado", "pollo",
+    "lentejas", "garbanzos", "aceite", "vinagre", "sal", "azucar", "miel", "canela",
+
+    // --- Animales ---
+    "perro", "gato", "caballo", "vaca", "oveja", "cerdo", "conejo", "raton",
+    "leon", "tigre", "elefante", "jirafa", "cebra", "mono", "oso", "lobo",
+    "aguila", "paloma", "loro", "pinguino", "delfin", "ballena", "tiburon", "pulpo",
+    "tortuga", "serpiente", "rana", "abeja", "hormiga", "mariposa", "araña", "caracol",
+
+    // --- Naturaleza y Geografía ---
+    "montaña", "rio", "valle", "bosque", "selva", "desierto", "oceano", "playa",
+    "isla", "volcan", "cueva", "cascada", "campo", "jardin", "parque", "sendero",
+    "arbol", "flor", "hierba", "piedra", "arena", "tierra", "nube", "lluvia",
+    "nieve", "viento", "trueno", "relampago", "estrella", "planeta", "galaxia", "universo",
+
+    // --- Cuerpo Humano y Salud ---
+    "cabeza", "brazo", "pierna", "mano", "dedo", "hombro", "espalda", "pecho",
+    "corazon", "pulmon", "estomago", "cerebro", "sangre", "hueso", "musculo", "piel",
+    "ojo", "oreja", "nariz", "boca", "diente", "lengua", "cuello", "rodilla",
+    "medico", "enfermera", "hospital", "farmacia", "vacuna", "jarabe", "pastilla", "venda",
+
+    // --- Ropa y Accesorios ---
+    "camiseta", "pantalon", "chaqueta", "abrigo", "vestido", "falda", "jersey", "camisa",
+    "zapato", "bota", "sandalia", "calcetin", "guante", "gorro", "bufanda", "cinturon",
+    "gafas", "anillo", "pulsera", "collar", "pendiente", "paraguas", "bolso", "maleta",
+
+    // --- Profesiones y Ciudad ---
+    "maestro", "policia", "bombero", "cocinero", "pintor", "musico", "actor", "escritor",
+    "panadero", "barbero", "dentista", "juez", "abogado", "arquitecto", "ingeniero", "piloto",
+    "calle", "avenida", "plaza", "edificio", "puente", "estacion", "aeropuerto", "museo",
+    "cine", "teatro", "biblioteca", "colegio", "universidad", "tienda", "mercado", "banco",
+
+    // --- Transportes ---
+    "coche", "camion", "autobus", "moto", "bicicleta", "tren", "metro", "tranvia",
+    "barco", "avion", "helicoptero", "cohete", "submarino", "canoa", "patinete", "grua",
+
+    // --- Verbos y Acciones ---
+    "correr", "saltar", "caminar", "dormir", "comer", "beber", "cantar", "bailar",
+    "reir", "llorar", "hablar", "escuchar", "mirar", "leer", "escribir", "dibujar",
+    "nadar", "volar", "pensar", "soñar", "jugar", "trabajar", "estudiar", "viajar",
+    "comprar", "vender", "limpiar", "cocinar", "abrir", "cerrar", "subir", "bajar",
+
+    // --- Conceptos y Adjetivos ---
+    "felicidad", "amistad", "amor", "valentia", "esperanza", "paz", "justicia", "libertad",
+    "rapido", "lento", "grande", "pequeño", "fuerte", "debil", "alto", "bajo",
+    "nuevo", "viejo", "bueno", "malo", "facil", "dificil", "caliente", "frio",
+    "limpio", "sucio", "brillante", "oscuro", "pesado", "ligero", "dulce", "amargo",
+
+    // --- Palabras Variadas ---
+    "aventura", "misterio", "leyenda", "magia", "tesoro", "pirata", "castillo", "palacio",
+    "escudo", "espada", "corona", "bandera", "moneda", "billete", "regalo", "fiesta",
+    "musica", "guitarra", "piano", "tambor", "trompeta", "colores", "pintura", "pincel",
+    "pelota", "raqueta", "ajedrez", "dados", "naipe", "rompecabezas", "juguete", "peluche"
 ];
 
 const BASE_TIME = 7;
