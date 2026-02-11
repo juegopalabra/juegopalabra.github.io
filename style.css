@@ -90,3 +90,18 @@ ul {
 li {
     margin: 5px 0;
 }
+.main-footer {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #888; 
+    pointer-events: none; 
+}
+
+
+.main-footer p {
+    margin: 0;
+    letter-spacing: 1px;
+}
