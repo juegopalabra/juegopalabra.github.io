@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego de Palabras</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+    <!-- MENÚ PRINCIPAL -->
+    <section id="menu" class="screen active">
+        <div class="box">
+            <h1>Juego de Palabras</h1>
+            <button onclick="showName()">Jugar</button>
+            <button onclick="showScores()">Puntuaciones</button>
+        </div>
+    </section>
+
+    <!-- NOMBRE DEL JUGADOR -->
+    <section id="nameScreen" class="screen">
+        <div class="box">
+            <h2>Introduce tu nombre</h2>
+            <input id="playerName" placeholder="Tu nombre">
+            <button onclick="startGame()">Empezar</button>
+            <button onclick="showMenu()">Volver</button>
+        </div>
+    </section>
+
+    <!-- JUEGO -->
+    <section id="game" class="screen">
+        <div class="hud">
+            <div id="timer" class="rect"></div>
+            <div id="score" class="rect"></div>
+            <div id="lives" class="rect"></div>
+        </div>
+
+        <div class="box big">
+            <div id="word" class="word"></div>
+            <input id="inputWord" autocomplete="off">
+            <div id="message"></div>
+        </div>
+
+        <button class="exit" onclick="showMenu()">Menú</button>
+    </section>
+
+    <!-- RANKING -->
+    <section id="scoresScreen" class="screen">
+        <div class="box">
+            <h2>Puntuaciones</h2>
+            <ul id="scoresList"></ul>
+            <button onclick="showMenu()">Volver</button>
+        </div>
+    </section>
+
+</div>
+<script src="game.js"></script>
+</body>
+</html>
