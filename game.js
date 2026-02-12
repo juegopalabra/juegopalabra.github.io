@@ -1,63 +1,42 @@
 // ---------------- DATOS ----------------
 const WORDS = [
-    // --- Cotidianas y Hogar ---
     "mesa", "silla", "lampara", "ventana", "puerta", "cocina", "espejo", "cuadro",
     "nevera", "tenedor", "cuchara", "sarten", "almohada", "sabana", "cepillo", "jabon",
     "toalla", "percha", "armario", "alfombra", "cortina", "plato", "vaso", "botella",
     "reloj", "llave", "cartera", "mochila", "boligrafo", "libreta", "periodico", "revista",
-
-    // --- Comida y Bebida ---
     "manzana", "platano", "cereza", "pan", "queso", "chocolate", "arroz", "pasta",
     "hamburguesa", "pizza", "ensalada", "tomate", "patata", "cebolla", "huevo", "leche",
     "cafe", "zumo", "galleta", "pastel", "helado", "carne", "pescado", "pollo",
     "lentejas", "garbanzos", "aceite", "vinagre", "sal", "azucar", "miel", "canela",
-
-    // --- Animales ---
     "perro", "gato", "caballo", "vaca", "oveja", "cerdo", "conejo", "raton",
     "leon", "tigre", "elefante", "jirafa", "cebra", "mono", "oso", "lobo",
     "aguila", "paloma", "loro", "pinguino", "delfin", "ballena", "tiburon", "pulpo",
     "tortuga", "serpiente", "rana", "abeja", "hormiga", "mariposa", "araña", "caracol",
-
-    // --- Naturaleza y Geografía ---
     "montaña", "rio", "valle", "bosque", "selva", "desierto", "oceano", "playa",
     "isla", "volcan", "cueva", "cascada", "campo", "jardin", "parque", "sendero",
     "arbol", "flor", "hierba", "piedra", "arena", "tierra", "nube", "lluvia",
     "nieve", "viento", "trueno", "relampago", "estrella", "planeta", "galaxia", "universo",
-
-    // --- Cuerpo Humano y Salud ---
     "cabeza", "brazo", "pierna", "mano", "dedo", "hombro", "espalda", "pecho",
     "corazon", "pulmon", "estomago", "cerebro", "sangre", "hueso", "musculo", "piel",
     "ojo", "oreja", "nariz", "boca", "diente", "lengua", "cuello", "rodilla",
     "medico", "enfermera", "hospital", "farmacia", "vacuna", "jarabe", "pastilla", "venda",
-
-    // --- Ropa y Accesorios ---
     "camiseta", "pantalon", "chaqueta", "abrigo", "vestido", "falda", "jersey", "camisa",
     "zapato", "bota", "sandalia", "calcetin", "guante", "gorro", "bufanda", "cinturon",
     "gafas", "anillo", "pulsera", "collar", "pendiente", "paraguas", "bolso", "maleta",
-
-    // --- Profesiones y Ciudad ---
     "maestro", "policia", "bombero", "cocinero", "pintor", "musico", "actor", "escritor",
     "panadero", "barbero", "dentista", "juez", "abogado", "arquitecto", "ingeniero", "piloto",
     "calle", "avenida", "plaza", "edificio", "puente", "estacion", "aeropuerto", "museo",
     "cine", "teatro", "biblioteca", "colegio", "universidad", "tienda", "mercado", "banco",
-
-    // --- Transportes ---
     "coche", "camion", "autobus", "moto", "bicicleta", "tren", "metro", "tranvia",
     "barco", "avion", "helicoptero", "cohete", "submarino", "canoa", "patinete", "grua",
-
-    // --- Verbos y Acciones ---
     "correr", "saltar", "caminar", "dormir", "comer", "beber", "cantar", "bailar",
     "reir", "llorar", "hablar", "escuchar", "mirar", "leer", "escribir", "dibujar",
     "nadar", "volar", "pensar", "soñar", "jugar", "trabajar", "estudiar", "viajar",
     "comprar", "vender", "limpiar", "cocinar", "abrir", "cerrar", "subir", "bajar",
-
-    // --- Conceptos y Adjetivos ---
     "felicidad", "amistad", "amor", "valentia", "esperanza", "paz", "justicia", "libertad",
     "rapido", "lento", "grande", "pequeño", "fuerte", "debil", "alto", "bajo",
     "nuevo", "viejo", "bueno", "malo", "facil", "dificil", "caliente", "frio",
     "limpio", "sucio", "brillante", "oscuro", "pesado", "ligero", "dulce", "amargo",
-
-    // --- Palabras Variadas ---
     "aventura", "misterio", "leyenda", "magia", "tesoro", "pirata", "castillo", "palacio",
     "escudo", "espada", "corona", "bandera", "moneda", "billete", "regalo", "fiesta",
     "musica", "guitarra", "piano", "tambor", "trompeta", "colores", "pintura", "pincel",
@@ -75,6 +54,7 @@ let lives = MAX_LIVES;
 let timeLimit = BASE_TIME;
 let startTime = 0;
 let timerInterval = null;
+let isPaused = false;
 
 // ---------------- UTILIDADES ----------------
 function showScreen(id) {
@@ -84,25 +64,12 @@ function showScreen(id) {
 
 function showMenu() {
     clearInterval(timerInterval);
+    isPaused = false;
     showScreen("menu");
 }
 
 function showName() {
     showScreen("nameScreen");
-}
-
-function showScores() {
-    const list = document.getElementById("scoresList");
-    list.innerHTML = "";
-
-    const scores = JSON.parse(localStorage.getItem("scores")) || [];
-    scores.forEach(s => {
-        const li = document.createElement("li");
-        li.textContent = `${s.name} — ${s.points} puntos`;
-        list.appendChild(li);
-    });
-
-    showScreen("scoresScreen");
 }
 
 // ---------------- JUEGO ----------------
@@ -112,6 +79,7 @@ function startGame() {
 
     score = 0;
     lives = MAX_LIVES;
+    isPaused = false;
     nextRound();
     showScreen("game");
 }
@@ -122,11 +90,14 @@ function nextRound() {
         return;
     }
 
+    isPaused = false;
     word = WORDS[Math.floor(Math.random() * WORDS.length)];
     document.getElementById("word").textContent = word;
     document.getElementById("inputWord").value = "";
     document.getElementById("message").textContent = "";
+    document.getElementById("inputWord").focus();
 
+    // Dificultad progresiva
     timeLimit = BASE_TIME * Math.pow(0.95, score);
     startTime = Date.now();
 
@@ -141,51 +112,83 @@ function updateHUD() {
 }
 
 function updateTimer() {
-    const elapsed = (Date.now() - startTime) / 1000;
-    const remaining = timeLimit - elapsed;
+    if (isPaused) return;
 
-    document.getElementById("timer").textContent =
-        `Tiempo: ${remaining.toFixed(2)}s`;
+    const elapsed = (Date.now() - startTime) / 1000;
+    const remaining = Math.max(0, timeLimit - elapsed);
+    const percentage = (remaining / timeLimit) * 100;
+
+    const bar = document.getElementById("progressBar");
+    if (bar) {
+        bar.style.width = percentage + "%";
+        // Cambio de color gradual
+        if (percentage > 60) bar.style.backgroundColor = "#4caf50";
+        else if (percentage > 30) bar.style.backgroundColor = "#ffeb3b";
+        else if (percentage > 15) bar.style.backgroundColor = "#ff9800";
+        else bar.style.backgroundColor = "#f44336";
+    }
+
+    document.getElementById("timer").textContent = `Tiempo: ${remaining.toFixed(2)}s`;
 
     if (remaining <= 0) {
-        clearInterval(timerInterval);
-        lives--;
-        nextRound();
+        handleFailure("❌ ¡Tiempo agotado!");
     }
 }
 
+function handleFailure(msg) {
+    if (isPaused) return;
+    isPaused = true;
+    clearInterval(timerInterval);
+    
+    lives--;
+    updateHUD();
+
+    const messageEl = document.getElementById("message");
+    messageEl.textContent = msg;
+    messageEl.style.color = "#f44336";
+    
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.backgroundColor = "#f44336";
+
+    if (lives <= 0) {
+        setTimeout(endGame, 1000);
+    } else {
+        setTimeout(nextRound, 1200);
+    }
+}
+
+// Único evento de teclado corregido
 document.getElementById("inputWord").addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-        clearInterval(timerInterval);
-        const input = e.target.value.trim();
+    if (e.key === "Enter" && !isPaused) {
+        const input = e.target.value.trim().toLowerCase();
 
-        if (input === word) {
+        if (input === word.toLowerCase()) {
             score++;
-            document.getElementById("message").textContent = "Correcto";
+            document.getElementById("message").textContent = "✅ ¡Bien!";
+            document.getElementById("message").style.color = "#4caf50";
+            clearInterval(timerInterval);
+            isPaused = true; // Pausa para feedback
+            setTimeout(nextRound, 400);
         } else {
-            lives--;
-            document.getElementById("message").textContent = "Incorrecto";
+            handleFailure("❌ Incorrecto");
         }
-
-        setTimeout(nextRound, 800);
     }
 });
 
-// ---------------- FIN ----------------
+// ---------------- CONEXIÓN GOOGLE SHEETS ----------------
 const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbx7R2gQjymm-9arKpHJqeX525m00KmDpAS_hm869oc_pwgvHWE01ViHSb1yRNnvHSGW/exec";
+let enviando = false;
 
-// --- FIN DEL JUEGO: ENVIAR DATOS ---
-let enviando = false; // Variable de control
 function endGame() {
-    if (enviando) return; // Si ya se está enviando, ignoramos el clic
+    clearInterval(timerInterval);
+    if (enviando) return;
     enviando = true;
-    // 1. Crear un formulario oculto
+
     const form = document.createElement("form");
     form.method = "POST";
     form.action = URL_SCRIPT;
-    form.target = "hidden_iframe"; // Esto evita que la página se recargue
+    form.target = "hidden_iframe";
 
-    // 2. Añadir los datos como campos de texto
     const nameInput = document.createElement("input");
     nameInput.name = "name";
     nameInput.value = playerName;
@@ -196,7 +199,6 @@ function endGame() {
     pointsInput.value = score;
     form.appendChild(pointsInput);
 
-    // 3. Crear un iframe invisible para que no se vea el envío
     let iframe = document.getElementById("hidden_iframe");
     if (!iframe) {
         iframe = document.createElement("iframe");
@@ -206,26 +208,20 @@ function endGame() {
         document.body.appendChild(iframe);
     }
 
-    // 4. Enviar y avisar
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
-    // Bloqueamos el envío por 3 segundos para evitar spam de clics
-    setTimeout(() => {
-        enviando = false;
-    }, 3000); 
-    alert(`¡Partida guardada!\nJugador: ${playerName}\nPuntos: ${score}`);
+
+    setTimeout(() => { enviando = false; }, 3000); 
+    alert(`¡Fin del juego!\nJugador: ${playerName}\nPuntos: ${score}`);
     showMenu();
 }
 
-// --- VER PUNTUACIONES: LEER DEL EXCEL ---
-// REEMPLAZA TU FUNCIÓN showScores POR ESTA
 function showScores() {
     const list = document.getElementById("scoresList");
     list.innerHTML = "<li>Cargando ranking...</li>";
     showScreen("scoresScreen");
 
-    // 1. Creamos la función que recibirá los datos desde Google
     window.renderScores = function(data) {
         list.innerHTML = "";
         if (!data || data.length === 0) {
@@ -237,19 +233,14 @@ function showScores() {
                 list.appendChild(li);
             });
         }
-        // Limpieza: borramos el script para que no se acumulen en el HTML
         document.getElementById('google-loader')?.remove();
     };
 
-    // 2. Creamos un elemento <script>. Esto se salta el CORS por completo.
     const script = document.createElement('script');
     script.id = 'google-loader';
-    // Llamamos a la URL pasando el nombre de nuestra función en el callback
     script.src = `${URL_SCRIPT}?callback=renderScores&t=${Date.now()}`;
-    
     script.onerror = () => {
-        list.innerHTML = "<li>Error al conectar con el servidor de Google</li>";
+        list.innerHTML = "<li>Error al conectar con el servidor</li>";
     };
-
     document.body.appendChild(script);
 }
